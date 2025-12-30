@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security Opinion | Sanchar Sathi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cyber-blue: #00f3ff;
+            --cyber-green: #00ff9d;
+            --cyber-dark: #0a0e17;
+            --cyber-darker: #050811;
+            --cyber-gray: #1a2236;
+            --cyber-light: #e0f7ff;
+            --cyber-purple: #b026ff;
+            --cyber-red: #ff2a6d;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cyber-darker);
+            color: var(--cyber-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Cyber grid background */
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(10, 14, 23, 0.9) 0%, rgba(5, 8, 17, 0.95) 100%),
+                radial-gradient(circle at 20% 30%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 157, 0.05) 0%, transparent 20%);
+            z-index: -2;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Scan line effect */
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--cyber-green), transparent);
+            box-shadow: 0 0 10px var(--cyber-green);
+            z-index: -1;
+            animation: scan 4s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        /* BIG OMG CREDIT - Very Prominent */
+        .big-credit {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, 
+                rgba(176, 38, 255, 0.9), 
+                rgba(255, 42, 109, 0.9),
+                rgba(0, 243, 255, 0.9));
+            color: white;
+            text-align: center;
+            padding: 18px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: creditGlow 3s infinite alternate;
+            border-bottom: 2px solid var(--cyber-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        @keyframes creditGlow {
+            0% {
+                box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5),
+                            0 0 20px rgba(176, 38, 255, 0.3);
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                box-shadow: 0 5px 40px rgba(0, 0, 0, 0.6),
+                            0 0 30px rgba(255, 42, 109, 0.5);
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                             0 0 20px rgba(0, 243, 255, 0.5);
+            }
+        }
+
+        .credit-icon {
+            font-size: 1.8rem;
+            animation: spin 4s linear infinite;
+        }
+
+        .credit-icon:nth-child(2) {
+            animation-delay: 0.5s;
+            animation-direction: reverse;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 100px 20px 30px; /* Extra top padding for the big credit */
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header section */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .cyber-shield {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .shield-outer {
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--cyber-blue);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            animation: shield-pulse 3s infinite alternate;
+        }
+
+        .shield-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 50%;
+            border: 1px solid var(--cyber-blue);
+        }
+
+        @keyframes shield-pulse {
+            0% { box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); }
+            100% { box-shadow: 0 0 25px rgba(0, 243, 255, 0.5); }
+        }
+
+        .title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #a0b3c9;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #8899bb;
+            background: rgba(26, 34, 54, 0.5);
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            border-left: 3px solid var(--cyber-green);
+            margin-top: 15px;
+        }
+
+        /* Main card */
+        .main-card {
+            background: rgba(26, 34, 54, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px 40px;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-green));
+        }
+
+        .main-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .question {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--cyber-light);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -0.5px;
+        }
+
+        /* Buttons */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .vote-button {
+            flex: 1;
+            min-width: 220px;
+            padding: 24px 30px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .vote-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .vote-button:hover::before {
+            opacity: 1;
+        }
+
+        .yes-button {
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.15), rgba(0, 243, 255, 0.15));
+            color: var(--cyber-green);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.1);
+        }
+
+        .yes-button:hover {
+            box-shadow: 0 8px 25px rgba(0, 255, 157, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 157, 0.6);
+        }
+
+        .no-button {
+            background: linear-gradient(135deg, rgba(255, 75, 85, 0.15), rgba(255, 100, 124, 0.15));
+            color: #ff6c7c;
+            border: 1px solid rgba(255, 108, 124, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 108, 124, 0.1);
+        }
+
+        .no-button:hover {
+            box-shadow: 0 8px 25px rgba(255, 108, 124, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(255, 108, 124, 0.6);
+        }
+
+        /* Loading animation */
+        .loading-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .cyber-loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .cyber-loader::before,
+        .cyber-loader::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .cyber-loader::before {
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: var(--cyber-blue);
+            border-bottom-color: var(--cyber-green);
+            animation: cyber-spin 1s linear infinite;
+        }
+
+        .cyber-loader::after {
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 4px solid transparent;
+            border-left-color: var(--cyber-green);
+            border-right-color: var(--cyber-blue);
+            animation: cyber-spin-reverse 0.8s linear infinite;
+        }
+
+        @keyframes cyber-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes cyber-spin-reverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        .loading-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--cyber-blue);
+            letter-spacing: 2px;
+            text-align: center;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Results display */
+        .results-container {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--cyber-light);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .result-item {
+            text-align: center;
+        }
+
+        .result-label {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .yes-label {
+            color: var(--cyber-green);
+        }
+
+        .no-label {
+            color: #ff6c7c;
+        }
+
+        .circle-meter {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .meter-bg {
+            fill: none;
+            stroke: var(--cyber-gray);
+            stroke-width: 10;
+        }
+
+        .meter-progress {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 1.5s ease-out;
+        }
+
+        .yes-progress {
+            stroke: var(--cyber-green);
+        }
+
+        .no-progress {
+            stroke: #ff6c7c;
+        }
+
+        .meter-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .yes-text {
+            color: var(--cyber-green);
+        }
+
+        .no-text {
+            color: #ff6c7c;
+        }
+
+        .vote-count {
+            margin-top: 40px;
+            font-size: 0.95rem;
+            color: #a0b3c9;
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .reset-button {
+            display: block;
+            margin: 40px auto 0;
+            padding: 14px 35px;
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--cyber-blue);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 1px;
+        }
+
+        .reset-button:hover {
+            background: rgba(0, 243, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.2);
+        }
+
+        /* Big Footer Credit */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #8899bb;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 30px;
+            position: relative;
+        }
+
+        .big-footer-credit {
+            margin-top: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: white;
+            background: linear-gradient(90deg, 
+                rgba(176, 38, 255, 0.8), 
+                rgba(255, 42, 109, 0.8),
+                rgba(0, 243, 255, 0.8));
+            padding: 20px 40px;
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--cyber-blue);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: footerCreditGlow 3s infinite alternate;
+        }
+
+        @keyframes footerCreditGlow {
+            0% {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                            0 0 15px rgba(176, 38, 255, 0.4);
+            }
+            100% {
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4),
+                            0 0 25px rgba(255, 42, 109, 0.6);
+            }
+        }
+
+        .footer-icon {
+            font-size: 1.8rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .question {
+                font-size: 1.8rem;
+            }
+            
+            .main-card {
+                padding: 40px 25px;
+            }
+            
+            .vote-button {
+                min-width: 100%;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .circle-meter {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .big-credit {
+                font-size: 1.2rem;
+                padding: 15px 0;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .big-footer-credit {
+                font-size: 1.1rem;
+                padding: 15px 25px;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.9rem;
+            }
+            
+            .question {
+                font-size: 1.5rem;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .vote-button {
+                width: 100%;
+                padding: 20px;
+            }
+            
+            .big-credit {
+                font-size: 1rem;
+                padding: 12px 0;
+            }
+            
+            .big-footer-credit {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+            
+            .container {
+                padding-top: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- BIG OMG CREDIT - SUPER PROMINENT -->
+    <div class="big-credit">
+        <span class="credit-icon">⚡</span>
+        <span>DEVELOPED BY tusharxploit</span>
+        <span class="credit-icon">⚡</span>
+    </div>
+
+    <!-- Background elements -->
+    <div class="cyber-bg"></div>
+    <div class="cyber-grid"></div>
+    <div class="scan-line"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="cyber-shield">
+                <div class="shield-outer">
+                    <div class="shield-inner"></div>
+                </div>
+            </div>
+            
+            <h1 class="title">Should I Expose the Sanchar Sathi App?</h1>
+            <p class="subtitle">Your opinion helps me decide whether to make a cyber security awareness video.</p>
+            <div class="note">This is only for public opinion — not a factual verdict.</div>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="main-card">
+            <!-- Question -->
+            <div class="question">Can I expose Sanchar Sathi?</div>
+            
+            <!-- Voting Buttons -->
+            <div class="buttons-container" id="buttonsContainer">
+                <button class="vote-button yes-button" id="yesButton">
+                    <span>YES</span>
+                </button>
+                <button class="vote-button no-button" id="noButton">
+                    <span>NO</span>
+                </button>
+            </div>
+            
+            <!-- Loading Animation -->
+            <div class="loading-container" id="loadingContainer">
+                <div class="cyber-loader"></div>
+                <div class="loading-text">ANALYZING PUBLIC OPINION...</div>
+            </div>
+            
+            <!-- Results Display -->
+            <div class="results-container" id="resultsContainer">
+                <h2 class="results-title">OPINION ANALYSIS RESULTS</h2>
+                
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-label yes-label">
+                            <span>YES</span>
+                        </div>
+                        <div class="circle-meter">
+                            <svg width="200" height="200" viewBox="0 0 200 200">
+                                <circle class="meter-bg" cx="100" cy="100" r="90"></circle>
+                                <circle class="meter-progress yes-progress" id="yesProgressCircle" cx="100" cy="100" r="90"></circle>
+                            </svg>
+                            <div class="meter-text yes-text" id="yesPercentText">0%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-label no-label">
+                            <span>NO</span>
+                        </div>
+                        <div class="circle-meter">
+                            <svg width="200" height="200" viewBox="0 0 200 200">
+                                <circle class="meter-bg" cx="100" cy="100" r="90"></circle>
+                                <circle class="meter-progress no-progress" id="noProgressCircle" cx="100" cy="100" r="90"></circle>
+                            </svg>
+                            <div class="meter-text no-text" id="noPercentText">0%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vote-count" id="totalVotes">Based on 12,847 security-conscious voters</div>
+                
+                <button class="reset-button" id="resetButton">SUBMIT ANOTHER OPINION</button>
+            </div>
+        </div>
+        
+        <!-- Footer with BIG credit -->
+        <div class="footer">
+            <p>This is a cyber security opinion collection platform. The results represent public perception and do not constitute a factual assessment of any application.</p>
+            <div class="big-footer-credit">
+                <span class="footer-icon">🛡️</span>
+                <span>CYBER SECURITY BY tusharxploit</span>
+                <span class="footer-icon">💻</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const buttonsContainer = document.getElementById('buttonsContainer');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resetButton = document.getElementById('resetButton');
+        const yesPercentText = document.getElementById('yesPercentText');
+        const noPercentText = document.getElementById('noPercentText');
+        const yesProgressCircle = document.getElementById('yesProgressCircle');
+        const noProgressCircle = document.getElementById('noProgressCircle');
+        const totalVotes = document.getElementById('totalVotes');
+        
+        // Results data
+        const results = {
+            yes: 90.30,
+            no: 9.70,
+            totalVotes: 12847
+        };
+        
+        // Calculate circumference for circle meters (2 * π * r)
+        const radius = 90;
+        const circumference = 2 * Math.PI * radius;
+        
+        // Set the stroke-dasharray and initial stroke-dashoffset for circles
+        yesProgressCircle.style.strokeDasharray = circumference;
+        yesProgressCircle.style.strokeDashoffset = circumference;
+        noProgressCircle.style.strokeDasharray = circumference;
+        noProgressCircle.style.strokeDashoffset = circumference;
+        
+        // Event Listeners
+        yesButton.addEventListener('click', () => castVote('yes'));
+        noButton.addEventListener('click', () => castVote('no'));
+        resetButton.addEventListener('click', resetVote);
+        
+        // Function to cast a vote
+        function castVote(voteType) {
+            // Hide buttons, show loading
+            buttonsContainer.style.display = 'none';
+            loadingContainer.style.display = 'flex';
+            
+            // Simulate loading for 0.5 seconds
+            setTimeout(() => {
+                // Hide loading, show results
+                loadingContainer.style.display = 'none';
+                showResults();
+            }, 500);
+        }
+        
+        // Function to show results with animation
+        function showResults() {
+            // Set percentage text
+            yesPercentText.textContent = `${results.yes.toFixed(1)}%`;
+            noPercentText.textContent = `${results.no.toFixed(1)}%`;
+            
+            // Set total votes text
+            totalVotes.textContent = `Based on ${results.totalVotes.toLocaleString()} security-conscious voters`;
+            
+            // Show results container
+            resultsContainer.style.display = 'block';
+            
+            // Animate circle meters after a small delay
+            setTimeout(() => {
+                // Calculate offset for circle progress (circumference - (percentage/100 * circumference))
+                const yesOffset = circumference - (results.yes / 100 * circumference);
+                const noOffset = circumference - (results.no / 100 * circumference);
+                
+                yesProgressCircle.style.strokeDashoffset = yesOffset;
+                noProgressCircle.style.strokeDashoffset = noOffset;
+                
+                // Animate percentage counters
+                animateCounter(yesPercentText, 0, results.yes, 1500);
+                animateCounter(noPercentText, 0, results.no, 1500);
+            }, 300);
+        }
+        
+        // Function to animate percentage counters
+        function animateCounter(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const currentValue = Math.floor(progress * (end - start) + start);
+                element.textContent = `${currentValue.toFixed(1)}%`;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Function to reset the vote
+        function resetVote() {
+            // Hide results, show buttons
+            resultsContainer.style.display = 'none';
+            buttonsContainer.style.display = 'flex';
+            
+            // Reset circle meters
+            yesProgressCircle.style.strokeDashoffset = circumference;
+            noProgressCircle.style.strokeDashoffset = circumference;
+            
+            // Reset percentage text
+            yesPercentText.textContent = '0%';
+            noPercentText.textContent = '0%';
+        }
+        
+        // Initialize with entrance animation
+        window.addEventListener('DOMContentLoaded', () => {
+            // Add entrance animation for the main card
+            const mainCard = document.querySelector('.main-card');
+            mainCard.style.opacity = '0';
+            mainCard.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                mainCard.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                mainCard.style.opacity = '1';
+                mainCard.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // Make the big credit even more prominent with a typing effect
+            const creditText = document.querySelector('.big-credit span:nth-child(2)');
+            const originalText = creditText.textContent;
+            creditText.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    creditText.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+            
+            // Start typing effect after a short delay
+            setTimeout(typeWriter, 800);
+        });
+    </script>
+</body>
+</html>
